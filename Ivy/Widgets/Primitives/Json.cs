@@ -12,10 +12,22 @@ namespace Ivy;
 /// <remarks>
 /// The Json widget is designed for comprehensive JSON data presentation:
 /// <list type="bullet">
-/// <item><description><strong>Data visualization:</strong> Display API responses, configuration data, and structured information in readable format</description></item>
-/// <item><description><strong>Development tools:</strong> Provide debugging capabilities with syntax highlighting and collapsible tree structures</description></item>
-/// <item><description><strong>Interactive exploration:</strong> Enable users to explore complex JSON structures with expand/collapse functionality</description></item>
-/// <item><description><strong>Copy and export:</strong> Allow users to copy formatted JSON content for external use and analysis</description></item>
+/// <item>
+/// <term>Data visualization</term>
+/// <description>Display API responses, configuration data, and structured information in readable format.</description>
+/// </item>
+/// <item>
+/// <term>Development tools</term>
+/// <description>Provide debugging capabilities with syntax highlighting and collapsible tree structures.</description>
+/// </item>
+/// <item>
+/// <term>Interactive exploration</term>
+/// <description>Enable users to explore complex JSON structures with expand/collapse functionality.</description>
+/// </item>
+/// <item>
+/// <term>Copy and export</term>
+/// <description>Allow users to copy formatted JSON content for external use and analysis.</description>
+/// </item>
 /// </list>
 /// <para>The widget automatically formats JSON content with proper indentation and syntax highlighting, making it ideal for displaying API responses, configuration files, and any structured data that needs to be human-readable.</para>
 /// </remarks>
@@ -30,10 +42,22 @@ public record Json : WidgetBase<Json>
     /// <remarks>
     /// This constructor provides seamless integration with System.Text.Json parsing:
     /// <list type="bullet">
-    /// <item><description><strong>Automatic conversion:</strong> Converts JsonNode objects to formatted string representation</description></item>
-    /// <item><description><strong>Type safety:</strong> Ensures valid JSON structure through JsonNode validation</description></item>
-    /// <item><description><strong>Formatting preservation:</strong> Maintains proper JSON structure and formatting during conversion</description></item>
-    /// <item><description><strong>Object integration:</strong> Works seamlessly with parsed JSON objects and API responses</description></item>
+    /// <item>
+    /// <term>Automatic conversion</term>
+    /// <description>Converts JsonNode objects to formatted string representation.</description>
+    /// </item>
+    /// <item>
+    /// <term>Type safety</term>
+    /// <description>Ensures valid JSON structure through JsonNode validation.</description>
+    /// </item>
+    /// <item>
+    /// <term>Formatting preservation</term>
+    /// <description>Maintains proper JSON structure and formatting during conversion.</description>
+    /// </item>
+    /// <item>
+    /// <term>Object integration</term>
+    /// <description>Works seamlessly with parsed JSON objects and API responses.</description>
+    /// </item>
     /// </list>
     /// <para>Use this constructor when working with parsed JSON data from APIs, configuration files, or any scenario where you have JsonNode objects that need to be displayed to users.</para>
     /// </remarks>
@@ -50,10 +74,22 @@ public record Json : WidgetBase<Json>
     /// <remarks>
     /// The Json constructor provides flexible JSON content display with comprehensive formatting:
     /// <list type="bullet">
-    /// <item><description><strong>Syntax highlighting:</strong> Applies color coding to JSON elements (keys, values, brackets, etc.)</description></item>
-    /// <item><description><strong>Automatic formatting:</strong> Provides proper indentation and structure for readable presentation</description></item>
-    /// <item><description><strong>Interactive features:</strong> Enables expand/collapse functionality for nested objects and arrays</description></item>
-    /// <item><description><strong>Copy functionality:</strong> Allows users to copy formatted JSON content to clipboard</description></item>
+    /// <item>
+    /// <term>Syntax highlighting</term>
+    /// <description>Applies color coding to JSON elements (keys, values, brackets, etc.).</description>
+    /// </item>
+    /// <item>
+    /// <term>Automatic formatting</term>
+    /// <description>Provides proper indentation and structure for readable presentation.</description>
+    /// </item>
+    /// <item>
+    /// <term>Interactive features</term>
+    /// <description>Enables expand/collapse functionality for nested objects and arrays.</description>
+    /// </item>
+    /// <item>
+    /// <term>Copy functionality</term>
+    /// <description>Allows users to copy formatted JSON content to clipboard.</description>
+    /// </item>
     /// </list>
     /// <para>The widget handles both valid and malformed JSON gracefully, providing appropriate error indicators for invalid JSON while still displaying the content for debugging purposes.</para>
     /// </remarks>
@@ -67,10 +103,22 @@ public record Json : WidgetBase<Json>
     /// <remarks>
     /// The Content property holds the JSON data that will be displayed with enhanced presentation:
     /// <list type="bullet">
-    /// <item><description><strong>JSON formatting:</strong> Content is automatically formatted with proper indentation and structure</description></item>
-    /// <item><description><strong>Syntax highlighting:</strong> Different JSON elements (keys, strings, numbers, booleans) are color-coded for clarity</description></item>
-    /// <item><description><strong>Interactive display:</strong> Large JSON structures can be collapsed and expanded for easier navigation</description></item>
-    /// <item><description><strong>Validation feedback:</strong> Invalid JSON is highlighted with appropriate error indicators and messages</description></item>
+    /// <item>
+    /// <term>JSON formatting</term>
+    /// <description>Content is automatically formatted with proper indentation and structure.</description>
+    /// </item>
+    /// <item>
+    /// <term>Syntax highlighting</term>
+    /// <description>Different JSON elements (keys, strings, numbers, booleans) are color-coded for clarity.</description>
+    /// </item>
+    /// <item>
+    /// <term>Interactive display</term>
+    /// <description>Large JSON structures can be collapsed and expanded for easier navigation.</description>
+    /// </item>
+    /// <item>
+    /// <term>Validation feedback</term>
+    /// <description>Invalid JSON is highlighted with appropriate error indicators and messages.</description>
+    /// </item>
     /// </list>
     /// <para>When updating this property, the widget automatically re-renders the JSON content with updated formatting and highlighting. The content can be any string, but valid JSON format provides the best user experience with full feature support.</para>
     /// </remarks>

@@ -12,10 +12,22 @@ namespace Ivy;
 /// <remarks>
 /// The Image widget is designed for versatile image display scenarios:
 /// <list type="bullet">
-/// <item><description><strong>Content display:</strong> Show photographs, illustrations, icons, and visual content with proper sizing and quality</description></item>
-/// <item><description><strong>Responsive design:</strong> Automatically adapt to container constraints while preserving image aspect ratios</description></item>
-/// <item><description><strong>Performance optimization:</strong> Efficient loading and rendering of images with appropriate sizing and caching</description></item>
-/// <item><description><strong>Accessibility support:</strong> Provide visual content with proper alternative text and screen reader compatibility</description></item>
+/// <item>
+/// <term>Content display</term>
+/// <description>Show photographs, illustrations, icons, and visual content with proper sizing and quality.</description>
+/// </item>
+/// <item>
+/// <term>Responsive design</term>
+/// <description>Automatically adapt to container constraints while preserving image aspect ratios.</description>
+/// </item>
+/// <item>
+/// <term>Performance optimization</term>
+/// <description>Efficient loading and rendering of images with appropriate sizing and caching.</description>
+/// </item>
+/// <item>
+/// <term>Accessibility support</term>
+/// <description>Provide visual content with proper alternative text and screen reader compatibility.</description>
+/// </item>
 /// </list>
 /// <para>Images automatically size to their intrinsic dimensions by default, with support for custom sizing through inherited width and height properties. Future enhancements will include aspect ratio maintenance and various clipping options (circular, square, rounded).</para>
 /// </remarks>
@@ -30,10 +42,22 @@ public record Image : WidgetBase<Image>
     /// <remarks>
     /// The Image constructor provides flexible image loading with intelligent default sizing:
     /// <list type="bullet">
-    /// <item><description><strong>Intrinsic sizing:</strong> Automatically sizes to minimum content dimensions, respecting the image's natural size</description></item>
-    /// <item><description><strong>Aspect ratio preservation:</strong> Maintains original image proportions to prevent distortion</description></item>
-    /// <item><description><strong>Format support:</strong> Compatible with common web image formats (JPEG, PNG, GIF, WebP, SVG)</description></item>
-    /// <item><description><strong>Source flexibility:</strong> Accepts relative paths, absolute URLs, base64 data URIs, and various image sources</description></item>
+    /// <item>
+    /// <term>Intrinsic sizing</term>
+    /// <description>Automatically sizes to minimum content dimensions, respecting the image's natural size.</description>
+    /// </item>
+    /// <item>
+    /// <term>Aspect ratio preservation</term>
+    /// <description>Maintains original image proportions to prevent distortion.</description>
+    /// </item>
+    /// <item>
+    /// <term>Format support</term>
+    /// <description>Compatible with common web image formats (JPEG, PNG, GIF, WebP, SVG).</description>
+    /// </item>
+    /// <item>
+    /// <term>Source flexibility</term>
+    /// <description>Accepts relative paths, absolute URLs, base64 data URIs, and various image sources.</description>
+    /// </item>
     /// </list>
     /// <para>The default sizing behavior ensures images display at their natural dimensions while allowing customization through inherited Width and Height properties for responsive layouts and specific design requirements.</para>
     /// </remarks>
@@ -51,10 +75,22 @@ public record Image : WidgetBase<Image>
     /// <remarks>
     /// The Src property determines which image is loaded and displayed:
     /// <list type="bullet">
-    /// <item><description><strong>URL support:</strong> Accepts HTTP/HTTPS URLs for remote images and relative/absolute paths for local images</description></item>
-    /// <item><description><strong>Format compatibility:</strong> Supports standard web image formats including JPEG, PNG, GIF, WebP, and SVG</description></item>
-    /// <item><description><strong>Data URIs:</strong> Accepts base64-encoded data URIs for embedded image data</description></item>
-    /// <item><description><strong>Dynamic updates:</strong> Changing this property triggers reloading of the image with new source content</description></item>
+    /// <item>
+    /// <term>URL support</term>
+    /// <description>Accepts HTTP/HTTPS URLs for remote images and relative/absolute paths for local images.</description>
+    /// </item>
+    /// <item>
+    /// <term>Format compatibility</term>
+    /// <description>Supports standard web image formats including JPEG, PNG, GIF, WebP, and SVG.</description>
+    /// </item>
+    /// <item>
+    /// <term>Data URIs</term>
+    /// <description>Accepts base64-encoded data URIs for embedded image data.</description>
+    /// </item>
+    /// <item>
+    /// <term>Dynamic updates</term>
+    /// <description>Changing this property triggers reloading of the image with new source content.</description>
+    /// </item>
     /// </list>
     /// <para>Ensure image sources are accessible and consider implementing proper error handling for failed image loads. For optimal performance, use appropriate image formats and sizes for your specific use case.</para>
     /// </remarks>

@@ -12,10 +12,22 @@ namespace Ivy;
 /// <remarks>
 /// The Icon widget is designed for versatile visual communication:
 /// <list type="bullet">
-/// <item><description><strong>Visual indicators:</strong> Provide clear visual cues for actions, status, and navigation elements</description></item>
-/// <item><description><strong>Interface enhancement:</strong> Improve user experience with recognizable symbols and visual hierarchy</description></item>
-/// <item><description><strong>Accessibility support:</strong> Offer visual alternatives to text-based labels and descriptions</description></item>
-/// <item><description><strong>Responsive design:</strong> Scale appropriately across different screen sizes and device types</description></item>
+/// <item>
+/// <term>Visual indicators</term>
+/// <description>Provide clear visual cues for actions, status, and navigation elements.</description>
+/// </item>
+/// <item>
+/// <term>Interface enhancement</term>
+/// <description>Improve user experience with recognizable symbols and visual hierarchy.</description>
+/// </item>
+/// <item>
+/// <term>Accessibility support</term>
+/// <description>Offer visual alternatives to text-based labels and descriptions.</description>
+/// </item>
+/// <item>
+/// <term>Responsive design</term>
+/// <description>Scale appropriately across different screen sizes and device types.</description>
+/// </item>
 /// </list>
 /// <para>Icons are vector-based for crisp rendering at any size and support theming integration for consistent visual design across the application.</para>
 /// </remarks>
@@ -31,10 +43,22 @@ public record Icon : WidgetBase<Icon>
     /// <remarks>
     /// The Icon constructor provides flexible icon creation with design system integration:
     /// <list type="bullet">
-    /// <item><description><strong>Icon library access:</strong> Choose from a comprehensive set of predefined icons for common UI patterns</description></item>
-    /// <item><description><strong>Theme integration:</strong> Automatically inherits appropriate colors from the current theme when no color is specified</description></item>
-    /// <item><description><strong>Color customization:</strong> Override default colors for emphasis, branding, or semantic meaning</description></item>
-    /// <item><description><strong>Vector rendering:</strong> Ensures crisp, scalable display across all screen densities and sizes</description></item>
+    /// <item>
+    /// <term>Icon library access</term>
+    /// <description>Choose from a comprehensive set of predefined icons for common UI patterns.</description>
+    /// </item>
+    /// <item>
+    /// <term>Theme integration</term>
+    /// <description>Automatically inherits appropriate colors from the current theme when no color is specified.</description>
+    /// </item>
+    /// <item>
+    /// <term>Color customization</term>
+    /// <description>Override default colors for emphasis, branding, or semantic meaning.</description>
+    /// </item>
+    /// <item>
+    /// <term>Vector rendering</term>
+    /// <description>Ensures crisp, scalable display across all screen densities and sizes.</description>
+    /// </item>
     /// </list>
     /// <para>Icons provide essential visual communication elements that enhance usability and create intuitive user interfaces.</para>
     /// </remarks>
@@ -49,10 +73,22 @@ public record Icon : WidgetBase<Icon>
     /// <remarks>
     /// The Name property determines which icon symbol is displayed:
     /// <list type="bullet">
-    /// <item><description><strong>Icon library:</strong> Selected from a curated set of common interface icons and symbols</description></item>
-    /// <item><description><strong>Semantic meaning:</strong> Each icon conveys specific meaning and purpose in the user interface</description></item>
-    /// <item><description><strong>Consistency:</strong> Ensures visual consistency across the application through standardized iconography</description></item>
-    /// <item><description><strong>Recognition:</strong> Uses familiar symbols that users can quickly understand and interact with</description></item>
+    /// <item>
+    /// <term>Icon library</term>
+    /// <description>Selected from a curated set of common interface icons and symbols.</description>
+    /// </item>
+    /// <item>
+    /// <term>Semantic meaning</term>
+    /// <description>Each icon conveys specific meaning and purpose in the user interface.</description>
+    /// </item>
+    /// <item>
+    /// <term>Consistency</term>
+    /// <description>Ensures visual consistency across the application through standardized iconography.</description>
+    /// </item>
+    /// <item>
+    /// <term>Recognition</term>
+    /// <description>Uses familiar symbols that users can quickly understand and interact with.</description>
+    /// </item>
     /// </list>
     /// <para>Choose icons that clearly communicate their intended function and align with user expectations and interface conventions.</para>
     /// </remarks>
@@ -63,10 +99,22 @@ public record Icon : WidgetBase<Icon>
     /// <remarks>
     /// The Color property provides flexible icon appearance customization:
     /// <list type="bullet">
-    /// <item><description><strong>Theme integration:</strong> When null, automatically uses appropriate colors from the current theme</description></item>
-    /// <item><description><strong>Semantic coloring:</strong> Apply specific colors to convey meaning (success, warning, error, info)</description></item>
-    /// <item><description><strong>Brand consistency:</strong> Use brand colors for logo icons or branded interface elements</description></item>
-    /// <item><description><strong>Visual hierarchy:</strong> Emphasize important icons with contrasting or accent colors</description></item>
+    /// <item>
+    /// <term>Theme integration</term>
+    /// <description>When null, automatically uses appropriate colors from the current theme.</description>
+    /// </item>
+    /// <item>
+    /// <term>Semantic coloring</term>
+    /// <description>Apply specific colors to convey meaning (success, warning, error, info).</description>
+    /// </item>
+    /// <item>
+    /// <term>Brand consistency</term>
+    /// <description>Use brand colors for logo icons or branded interface elements.</description>
+    /// </item>
+    /// <item>
+    /// <term>Visual hierarchy</term>
+    /// <description>Emphasize important icons with contrasting or accent colors.</description>
+    /// </item>
     /// </list>
     /// <para>Consider accessibility and contrast requirements when choosing custom colors to ensure icons remain visible and usable for all users.</para>
     /// </remarks>
@@ -88,10 +136,22 @@ public static class IconExtensions
     /// <remarks>
     /// This extension method provides a convenient way to create icons directly from the Icons enumeration:
     /// <list type="bullet">
-    /// <item><description><strong>Simplified creation:</strong> Reduces boilerplate code when creating basic icons</description></item>
-    /// <item><description><strong>Fluent syntax:</strong> Enables method chaining for additional customization</description></item>
-    /// <item><description><strong>Default appearance:</strong> Uses theme-appropriate colors and standard sizing</description></item>
-    /// <item><description><strong>Type safety:</strong> Ensures only valid icon types can be converted</description></item>
+    /// <item>
+    /// <term>Simplified creation</term>
+    /// <description>Reduces boilerplate code when creating basic icons.</description>
+    /// </item>
+    /// <item>
+    /// <term>Fluent syntax</term>
+    /// <description>Enables method chaining for additional customization.</description>
+    /// </item>
+    /// <item>
+    /// <term>Default appearance</term>
+    /// <description>Uses theme-appropriate colors and standard sizing.</description>
+    /// </item>
+    /// <item>
+    /// <term>Type safety</term>
+    /// <description>Ensures only valid icon types can be converted.</description>
+    /// </item>
     /// </list>
     /// <para>Use this method as a starting point for icon creation, then chain additional methods for customization.</para>
     /// </remarks>
@@ -109,10 +169,22 @@ public static class IconExtensions
     /// <remarks>
     /// Color customization enables semantic and visual communication through icon appearance:
     /// <list type="bullet">
-    /// <item><description><strong>Semantic meaning:</strong> Use colors to convey status, importance, or category</description></item>
-    /// <item><description><strong>Visual hierarchy:</strong> Emphasize or de-emphasize icons within the interface</description></item>
-    /// <item><description><strong>Brand consistency:</strong> Apply brand colors for consistent visual identity</description></item>
-    /// <item><description><strong>Theme integration:</strong> Null values automatically use appropriate theme colors</description></item>
+    /// <item>
+    /// <term>Semantic meaning</term>
+    /// <description>Use colors to convey status, importance, or category.</description>
+    /// </item>
+    /// <item>
+    /// <term>Visual hierarchy</term>
+    /// <description>Emphasize or de-emphasize icons within the interface.</description>
+    /// </item>
+    /// <item>
+    /// <term>Brand consistency</term>
+    /// <description>Apply brand colors for consistent visual identity.</description>
+    /// </item>
+    /// <item>
+    /// <term>Theme integration</term>
+    /// <description>Null values automatically use appropriate theme colors.</description>
+    /// </item>
     /// </list>
     /// <para>Consider accessibility guidelines and ensure sufficient contrast when applying custom colors.</para>
     /// </remarks>
@@ -129,10 +201,22 @@ public static class IconExtensions
     /// <remarks>
     /// Small icons are ideal for specific interface contexts:
     /// <list type="bullet">
-    /// <item><description><strong>Compact layouts:</strong> Fit within tight spacing constraints and dense information displays</description></item>
-    /// <item><description><strong>Secondary elements:</strong> Provide visual cues without overwhelming primary content</description></item>
-    /// <item><description><strong>List items:</strong> Enhance list entries and table cells with minimal space usage</description></item>
-    /// <item><description><strong>Form controls:</strong> Add visual indicators to input fields and form elements</description></item>
+    /// <item>
+    /// <term>Compact layouts</term>
+    /// <description>Fit within tight spacing constraints and dense information displays.</description>
+    /// </item>
+    /// <item>
+    /// <term>Secondary elements</term>
+    /// <description>Provide visual cues without overwhelming primary content.</description>
+    /// </item>
+    /// <item>
+    /// <term>List items</term>
+    /// <description>Enhance list entries and table cells with minimal space usage.</description>
+    /// </item>
+    /// <item>
+    /// <term>Form controls</term>
+    /// <description>Add visual indicators to input fields and form elements.</description>
+    /// </item>
     /// </list>
     /// <para>Ensure small icons remain legible and accessible across different screen densities and viewing conditions.</para>
     /// </remarks>
@@ -149,10 +233,22 @@ public static class IconExtensions
     /// <remarks>
     /// Large icons are suitable for prominent interface elements:
     /// <list type="bullet">
-    /// <item><description><strong>Primary actions:</strong> Emphasize important buttons and interactive elements</description></item>
-    /// <item><description><strong>Navigation elements:</strong> Provide clear visual targets for main navigation and menu items</description></item>
-    /// <item><description><strong>Status indicators:</strong> Display prominent status information and system feedback</description></item>
-    /// <item><description><strong>Feature highlights:</strong> Draw attention to key features and capabilities</description></item>
+    /// <item>
+    /// <term>Primary actions</term>
+    /// <description>Emphasize important buttons and interactive elements.</description>
+    /// </item>
+    /// <item>
+    /// <term>Navigation elements</term>
+    /// <description>Provide clear visual targets for main navigation and menu items.</description>
+    /// </item>
+    /// <item>
+    /// <term>Status indicators</term>
+    /// <description>Display prominent status information and system feedback.</description>
+    /// </item>
+    /// <item>
+    /// <term>Feature highlights</term>
+    /// <description>Draw attention to key features and capabilities.</description>
+    /// </item>
     /// </list>
     /// <para>Large icons improve accessibility by providing bigger touch targets and enhanced visibility for users with visual impairments.</para>
     /// </remarks>

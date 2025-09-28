@@ -1,4 +1,4 @@
-﻿using Ivy.Core;
+using Ivy.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Ivy;
@@ -19,10 +19,22 @@ public record Embed : WidgetBase<Embed>
     /// <remarks>
     /// The Embed widget is designed for integrating external content:
     /// <list type="bullet">
-    /// <item><description><strong>Video embedding:</strong> Display videos from YouTube, Vimeo, and other platforms</description></item>
-    /// <item><description><strong>Interactive content:</strong> Embed maps, forms, widgets, and interactive applications</description></item>
-    /// <item><description><strong>Document display:</strong> Show PDFs, presentations, and document viewers</description></item>
-    /// <item><description><strong>Third-party tools:</strong> Integrate external dashboards, analytics, and specialized tools</description></item>
+    /// <item>
+    /// <term>Video embedding</term>
+    /// <description>Display videos from YouTube, Vimeo, and other platforms.</description>
+    /// </item>
+    /// <item>
+    /// <term>Interactive content</term>
+    /// <description>Embed maps, forms, widgets, and interactive applications.</description>
+    /// </item>
+    /// <item>
+    /// <term>Document display</term>
+    /// <description>Show PDFs, presentations, and document viewers.</description>
+    /// </item>
+    /// <item>
+    /// <term>Third-party tools</term>
+    /// <description>Integrate external dashboards, analytics, and specialized tools.</description>
+    /// </item>
     /// </list>
     /// <para>Security considerations include content security policies, iframe sandboxing, and trusted domain validation.</para>
     /// </remarks>

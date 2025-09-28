@@ -20,10 +20,22 @@ public record Box : WidgetBase<Box>
     /// <remarks>
     /// The Box widget is designed for visual content organization and styling:
     /// <list type="bullet">
-    /// <item><description><strong>Visual containers:</strong> Create distinct sections with borders and backgrounds</description></item>
-    /// <item><description><strong>Content cards:</strong> Display information in styled, bordered containers</description></item>
-    /// <item><description><strong>Layout panels:</strong> Organize content with consistent spacing and alignment</description></item>
-    /// <item><description><strong>Decorative elements:</strong> Add visual emphasis and structure to interfaces</description></item>
+    /// <item>
+    /// <term>Visual containers</term>
+    /// <description>Create distinct sections with borders and backgrounds.</description>
+    /// </item>
+    /// <item>
+    /// <term>Content cards</term>
+    /// <description>Display information in styled, bordered containers.</description>
+    /// </item>
+    /// <item>
+    /// <term>Layout panels</term>
+    /// <description>Organize content with consistent spacing and alignment.</description>
+    /// </item>
+    /// <item>
+    /// <term>Decorative elements</term>
+    /// <description>Add visual emphasis and structure to interfaces.</description>
+    /// </item>
     /// </list>
     /// <para>Default styling provides a primary-colored border with rounded corners and centered content alignment.</para>
     /// </remarks>

@@ -21,10 +21,22 @@ public record Error : WidgetBase<Error>
     /// <remarks>
     /// The Error widget is designed for comprehensive error communication:
     /// <list type="bullet">
-    /// <item><description><strong>User-facing errors:</strong> Display friendly error messages with helpful information</description></item>
-    /// <item><description><strong>Development debugging:</strong> Show detailed error information including stack traces</description></item>
-    /// <item><description><strong>Exception handling:</strong> Present caught exceptions in a structured, readable format</description></item>
-    /// <item><description><strong>Error reporting:</strong> Collect and display error information for analysis and support</description></item>
+    /// <item>
+    /// <term>User-facing errors</term>
+    /// <description>Display friendly error messages with helpful information.</description>
+    /// </item>
+    /// <item>
+    /// <term>Development debugging</term>
+    /// <description>Show detailed error information including stack traces.</description>
+    /// </item>
+    /// <item>
+    /// <term>Exception handling</term>
+    /// <description>Present caught exceptions in a structured, readable format.</description>
+    /// </item>
+    /// <item>
+    /// <term>Error reporting</term>
+    /// <description>Collect and display error information for analysis and support.</description>
+    /// </item>
     /// </list>
     /// <para>The widget supports progressive disclosure, showing basic information to users while providing detailed technical information when needed.</para>
     /// </remarks>

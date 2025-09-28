@@ -1,4 +1,4 @@
-﻿using Ivy.Core;
+using Ivy.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Ivy;
@@ -21,10 +21,22 @@ public record AppHost : WidgetBase<AppHost>
     /// <remarks>
     /// The AppHost enables several architectural patterns:
     /// <list type="bullet">
-    /// <item><description><strong>Micro-frontends:</strong> Compose multiple independent applications into a single interface</description></item>
-    /// <item><description><strong>Plugin systems:</strong> Dynamically load and render plugin applications</description></item>
-    /// <item><description><strong>Modular architecture:</strong> Break large applications into smaller, manageable components</description></item>
-    /// <item><description><strong>Application embedding:</strong> Embed specialized applications within broader contexts</description></item>
+    /// <item>
+    /// <term>Micro-frontends</term>
+    /// <description>Compose multiple independent applications into a single interface.</description>
+    /// </item>
+    /// <item>
+    /// <term>Plugin systems</term>
+    /// <description>Dynamically load and render plugin applications.</description>
+    /// </item>
+    /// <item>
+    /// <term>Modular architecture</term>
+    /// <description>Break large applications into smaller, manageable components.</description>
+    /// </item>
+    /// <item>
+    /// <term>Application embedding</term>
+    /// <description>Embed specialized applications within broader contexts.</description>
+    /// </item>
     /// </list>
     /// </remarks>
     public AppHost(string appId, string? appArgs, string? parentId)

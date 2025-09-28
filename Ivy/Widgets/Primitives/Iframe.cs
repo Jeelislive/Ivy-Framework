@@ -12,12 +12,24 @@ namespace Ivy;
 /// <remarks>
 /// The Iframe widget is designed for safe external content integration:
 /// <list type="bullet">
-/// <item><description><strong>External integration:</strong> Embed third-party websites, web applications, and online services seamlessly</description></item>
-/// <item><description><strong>Content isolation:</strong> Maintain security boundaries between host application and embedded content</description></item>
-/// <item><description><strong>Responsive embedding:</strong> Full-size display that adapts to container dimensions and layout requirements</description></item>
-/// <item><description><strong>Refresh control:</strong> Programmatic refresh capabilities for dynamic content updates and state management</description></item>
+/// <item>
+/// <term>External integration</term>
+/// <description>Embed third-party websites, web applications, and online services seamlessly.</description>
+/// </item>
+/// <item>
+/// <term>Content isolation</term>
+/// <description>Maintain security boundaries between host application and embedded content.</description>
+/// </item>
+/// <item>
+/// <term>Responsive embedding</term>
+/// <description>Full-size display that adapts to container dimensions and layout requirements.</description>
+/// </item>
+/// <item>
+/// <term>Refresh control</term>
+/// <description>Programmatic refresh capabilities for dynamic content updates and state management.</description>
+/// </item>
 /// </list>
-/// <para><strong>Security Considerations:</strong> Iframe content runs in a separate security context. Ensure embedded URLs are from trusted sources and consider implementing Content Security Policy (CSP) restrictions for enhanced security.</para>
+/// <para>Security considerations: Iframe content runs in a separate security context. Ensure embedded URLs are from trusted sources and consider implementing Content Security Policy (CSP) restrictions for enhanced security.</para>
 /// </remarks>
 public record Iframe : WidgetBase<Iframe>
 {
@@ -31,10 +43,22 @@ public record Iframe : WidgetBase<Iframe>
     /// <remarks>
     /// The Iframe constructor provides secure external content embedding with comprehensive configuration:
     /// <list type="bullet">
-    /// <item><description><strong>Full-size display:</strong> Automatically configured to fill available container space (width and height set to 100%)</description></item>
-    /// <item><description><strong>Security isolation:</strong> Content runs in separate security context, preventing interference with host application</description></item>
-    /// <item><description><strong>Refresh control:</strong> Optional refresh token enables programmatic content reloading for dynamic scenarios</description></item>
-    /// <item><description><strong>Responsive design:</strong> Adapts to parent container dimensions and layout changes automatically</description></item>
+    /// <item>
+    /// <term>Full-size display</term>
+    /// <description>Automatically configured to fill available container space (width and height set to 100%).</description>
+    /// </item>
+    /// <item>
+    /// <term>Security isolation</term>
+    /// <description>Content runs in separate security context, preventing interference with host application.</description>
+    /// </item>
+    /// <item>
+    /// <term>Refresh control</term>
+    /// <description>Optional refresh token enables programmatic content reloading for dynamic scenarios.</description>
+    /// </item>
+    /// <item>
+    /// <term>Responsive design</term>
+    /// <description>Adapts to parent container dimensions and layout changes automatically.</description>
+    /// </item>
     /// </list>
     /// <para>Use this widget for integrating external services, documentation, maps, social media content, or any web-based functionality that needs to be embedded within your application.</para>
     /// </remarks>
@@ -51,10 +75,22 @@ public record Iframe : WidgetBase<Iframe>
     /// <remarks>
     /// The Src property determines what external content is displayed in the iframe:
     /// <list type="bullet">
-    /// <item><description><strong>External URLs:</strong> Can point to any accessible web address, including third-party websites and services</description></item>
-    /// <item><description><strong>Security context:</strong> Content loads in isolated security context, preventing cross-site scripting attacks</description></item>
-    /// <item><description><strong>Dynamic updates:</strong> Changing this property triggers reloading of the iframe with new content</description></item>
-    /// <item><description><strong>Protocol support:</strong> Supports HTTP, HTTPS, and other web protocols as allowed by browser security policies</description></item>
+    /// <item>
+    /// <term>External URLs</term>
+    /// <description>Can point to any accessible web address, including third-party websites and services.</description>
+    /// </item>
+    /// <item>
+    /// <term>Security context</term>
+    /// <description>Content loads in isolated security context, preventing cross-site scripting attacks.</description>
+    /// </item>
+    /// <item>
+    /// <term>Dynamic updates</term>
+    /// <description>Changing this property triggers reloading of the iframe with new content.</description>
+    /// </item>
+    /// <item>
+    /// <term>Protocol support</term>
+    /// <description>Supports HTTP, HTTPS, and other web protocols as allowed by browser security policies.</description>
+    /// </item>
     /// </list>
     /// <para>Ensure the URL points to trusted sources and consider implementing Content Security Policy restrictions to enhance security and prevent malicious content embedding.</para>
     /// </remarks>
@@ -65,10 +101,22 @@ public record Iframe : WidgetBase<Iframe>
     /// <remarks>
     /// The RefreshToken property enables programmatic control over iframe content refresh:
     /// <list type="bullet">
-    /// <item><description><strong>Refresh trigger:</strong> Changing this token value forces the iframe to reload its content</description></item>
-    /// <item><description><strong>State management:</strong> Useful for refreshing dynamic content or resetting iframe state</description></item>
-    /// <item><description><strong>Cache busting:</strong> Helps ensure fresh content loading when embedded content might be cached</description></item>
-    /// <item><description><strong>Immutable property:</strong> Set only during construction to maintain predictable refresh behavior</description></item>
+    /// <item>
+    /// <term>Refresh trigger</term>
+    /// <description>Changing this token value forces the iframe to reload its content.</description>
+    /// </item>
+    /// <item>
+    /// <term>State management</term>
+    /// <description>Useful for refreshing dynamic content or resetting iframe state.</description>
+    /// </item>
+    /// <item>
+    /// <term>Cache busting</term>
+    /// <description>Helps ensure fresh content loading when embedded content might be cached.</description>
+    /// </item>
+    /// <item>
+    /// <term>Immutable property</term>
+    /// <description>Set only during construction to maintain predictable refresh behavior.</description>
+    /// </item>
     /// </list>
     /// <para>This property is particularly useful for embedded applications that need periodic refresh or when you need to reset the iframe state programmatically.</para>
     /// </remarks>

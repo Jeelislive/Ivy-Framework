@@ -1,4 +1,4 @@
-﻿using Ivy.Core;
+using Ivy.Core;
 using Ivy.Shared;
 
 // ReSharper disable once CheckNamespace
@@ -40,10 +40,22 @@ public record Callout : WidgetBase<Callout>
     /// <remarks>
     /// The Callout widget is designed for prominent user communication:
     /// <list type="bullet">
-    /// <item><description><strong>Information display:</strong> Present important information that users should notice</description></item>
-    /// <item><description><strong>Status communication:</strong> Communicate success, warning, or error states</description></item>
-    /// <item><description><strong>User guidance:</strong> Provide tips, instructions, or contextual help</description></item>
-    /// <item><description><strong>Attention drawing:</strong> Highlight critical information that requires user awareness</description></item>
+    /// <item>
+    /// <term>Information display</term>
+    /// <description>Present important information that users should notice.</description>
+    /// </item>
+    /// <item>
+    /// <term>Status communication</term>
+    /// <description>Communicate success, warning, or error states.</description>
+    /// </item>
+    /// <item>
+    /// <term>User guidance</term>
+    /// <description>Provide tips, instructions, or contextual help.</description>
+    /// </item>
+    /// <item>
+    /// <term>Attention drawing</term>
+    /// <description>Highlight critical information that requires user awareness.</description>
+    /// </item>
     /// </list>
     /// <para>String descriptions are automatically converted to Markdown for rich text formatting support.</para>
     /// </remarks>

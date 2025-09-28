@@ -1,4 +1,4 @@
-﻿using Ivy.Core;
+using Ivy.Core;
 
 // ReSharper disable once CheckNamespace
 namespace Ivy;
@@ -20,10 +20,22 @@ public record Avatar : WidgetBase<Avatar>
     /// <remarks>
     /// The Avatar widget is commonly used in:
     /// <list type="bullet">
-    /// <item><description><strong>User profiles:</strong> Display user identity in profile sections and user cards</description></item>
-    /// <item><description><strong>Comments and posts:</strong> Show author identity in content lists and discussions</description></item>
-    /// <item><description><strong>Navigation:</strong> User identification in headers, menus, and navigation bars</description></item>
-    /// <item><description><strong>Team displays:</strong> Member representation in team lists and organizational charts</description></item>
+    /// <item>
+    /// <term>User profiles</term>
+    /// <description>Display user identity in profile sections and user cards.</description>
+    /// </item>
+    /// <item>
+    /// <term>Comments and posts</term>
+    /// <description>Show author identity in content lists and discussions.</description>
+    /// </item>
+    /// <item>
+    /// <term>Navigation</term>
+    /// <description>User identification in headers, menus, and navigation bars.</description>
+    /// </item>
+    /// <item>
+    /// <term>Team displays</term>
+    /// <description>Member representation in team lists and organizational charts.</description>
+    /// </item>
     /// </list>
     /// <para>Best practices for fallback text:</para>
     /// <list type="bullet">

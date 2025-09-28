@@ -23,11 +23,26 @@ public static class InputExtensions
     /// <remarks>
     /// <para>Supported type mappings:</para>
     /// <list type="bullet">
-    /// <item><description><strong>Numeric types:</strong> int, double, long, short, float, decimal (and nullable variants) → NumberInput</description></item>
-    /// <item><description><strong>Boolean types:</strong> bool, bool? → BoolInput</description></item>
-    /// <item><description><strong>String type:</strong> string → TextInput</description></item>
-    /// <item><description><strong>Date/Time types:</strong> DateTime, DateOnly, DateTimeOffset (and nullable variants) → DateTimeInput</description></item>
-    /// <item><description><strong>Color types:</strong> Colors, Colors? → ColorInput</description></item>
+    /// <item>
+    /// <term>Numeric types</term>
+    /// <description>int, double, long, short, float, decimal (and nullable variants) → NumberInput.</description>
+    /// </item>
+    /// <item>
+    /// <term>Boolean types</term>
+    /// <description>bool, bool? → BoolInput.</description>
+    /// </item>
+    /// <item>
+    /// <term>String type</term>
+    /// <description>string → TextInput.</description>
+    /// </item>
+    /// <item>
+    /// <term>Date/Time types</term>
+    /// <description>DateTime, DateOnly, DateTimeOffset (and nullable variants) → DateTimeInput.</description>
+    /// </item>
+    /// <item>
+    /// <term>Color types</term>
+    /// <description>Colors, Colors? → ColorInput.</description>
+    /// </item>
     /// </list>
     /// <para>Future enhancements may include support for enums and IEnumerable types.</para>
     /// </remarks>

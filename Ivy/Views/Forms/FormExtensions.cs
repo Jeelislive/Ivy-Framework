@@ -25,16 +25,31 @@ public static class FormExtensions
     /// inspects the model type using reflection to discover all public fields and properties,
     /// then creates appropriate input controls based on intelligent heuristics.</para>
     /// 
-    /// <para><strong>Automatic Features:</strong></para>
+    /// <para>Automatic features:</para>
     /// <list type="bullet">
-    /// <item><description><strong>Field Discovery:</strong> Automatically finds all public fields and properties</description></item>
-    /// <item><description><strong>Label Generation:</strong> Converts PascalCase names to readable labels</description></item>
-    /// <item><description><strong>Input Selection:</strong> Chooses appropriate input types based on field names and types</description></item>
-    /// <item><description><strong>Validation Setup:</strong> Applies required field validation based on attributes</description></item>
-    /// <item><description><strong>Layout Defaults:</strong> Provides sensible default field ordering and layout</description></item>
+    /// <item>
+    /// <term>Field discovery</term>
+    /// <description>Automatically finds all public fields and properties.</description>
+    /// </item>
+    /// <item>
+    /// <term>Label generation</term>
+    /// <description>Converts PascalCase names to readable labels.</description>
+    /// </item>
+    /// <item>
+    /// <term>Input selection</term>
+    /// <description>Chooses appropriate input types based on field names and types.</description>
+    /// </item>
+    /// <item>
+    /// <term>Validation setup</term>
+    /// <description>Applies required field validation based on attributes.</description>
+    /// </item>
+    /// <item>
+    /// <term>Layout defaults</term>
+    /// <description>Provides sensible default field ordering and layout.</description>
+    /// </item>
     /// </list>
-    /// 
-    /// <para><strong>Usage Examples:</strong></para>
+    ///
+    /// <para>Usage examples:</para>
     /// <code>
     /// // Simple form with automatic scaffolding
     /// var userState = UseState(new User());

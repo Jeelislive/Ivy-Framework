@@ -11,10 +11,22 @@ namespace Ivy;
 /// <remarks>
 /// The Fragment widget is designed for scenarios where multiple widgets need to be grouped logically:
 /// <list type="bullet">
-/// <item><description><strong>Multiple returns:</strong> Return multiple widgets from methods or conditional logic without wrapper containers</description></item>
-/// <item><description><strong>Layout preservation:</strong> Group elements without affecting parent layout behavior or CSS styling</description></item>
-/// <item><description><strong>Conditional grouping:</strong> Conditionally render multiple related widgets as a cohesive unit</description></item>
-/// <item><description><strong>Component composition:</strong> Combine multiple widgets into reusable components without visual containers</description></item>
+/// <item>
+/// <term>Multiple returns</term>
+/// <description>Return multiple widgets from methods or conditional logic without wrapper containers.</description>
+/// </item>
+/// <item>
+/// <term>Layout preservation</term>
+/// <description>Group elements without affecting parent layout behavior or CSS styling.</description>
+/// </item>
+/// <item>
+/// <term>Conditional grouping</term>
+/// <description>Conditionally render multiple related widgets as a cohesive unit.</description>
+/// </item>
+/// <item>
+/// <term>Component composition</term>
+/// <description>Combine multiple widgets into reusable components without visual containers.</description>
+/// </item>
 /// </list>
 /// <para>Fragment automatically filters out null children to provide clean, safe widget composition without null reference concerns.</para>
 /// </remarks>
@@ -29,10 +41,22 @@ public record Fragment : WidgetBase<Fragment>
     /// <remarks>
     /// The Fragment constructor provides several key benefits:
     /// <list type="bullet">
-    /// <item><description><strong>Null safety:</strong> Automatically filters out null children to prevent rendering issues</description></item>
-    /// <item><description><strong>Transparent rendering:</strong> Children are rendered directly without additional wrapper elements</description></item>
-    /// <item><description><strong>Flexible composition:</strong> Accepts any number of child widgets for dynamic grouping</description></item>
-    /// <item><description><strong>Layout preservation:</strong> Maintains parent layout behavior without interference</description></item>
+    /// <item>
+    /// <term>Null safety</term>
+    /// <description>Automatically filters out null children to prevent rendering issues.</description>
+    /// </item>
+    /// <item>
+    /// <term>Transparent rendering</term>
+    /// <description>Children are rendered directly without additional wrapper elements.</description>
+    /// </item>
+    /// <item>
+    /// <term>Flexible composition</term>
+    /// <description>Accepts any number of child widgets for dynamic grouping.</description>
+    /// </item>
+    /// <item>
+    /// <term>Layout preservation</term>
+    /// <description>Maintains parent layout behavior without interference.</description>
+    /// </item>
     /// </list>
     /// <para>This is particularly useful when conditionally including widgets or when methods need to return multiple widgets as a single unit.</para>
     /// </remarks>

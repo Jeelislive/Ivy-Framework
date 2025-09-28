@@ -52,10 +52,22 @@ public record Code : WidgetBase<Code>
     /// <remarks>
     /// The Code widget is designed for displaying source code and formatted text:
     /// <list type="bullet">
-    /// <item><description><strong>Documentation:</strong> Display code examples in tutorials and API documentation</description></item>
-    /// <item><description><strong>Code sharing:</strong> Present code snippets with proper formatting and highlighting</description></item>
-    /// <item><description><strong>Configuration display:</strong> Show configuration files, JSON, and structured data</description></item>
-    /// <item><description><strong>Educational content:</strong> Teach programming concepts with highlighted syntax</description></item>
+    /// <item>
+    /// <term>Documentation</term>
+    /// <description>Display code examples in tutorials and API documentation.</description>
+    /// </item>
+    /// <item>
+    /// <term>Code sharing</term>
+    /// <description>Present code snippets with proper formatting and highlighting.</description>
+    /// </item>
+    /// <item>
+    /// <term>Configuration display</term>
+    /// <description>Show configuration files, JSON, and structured data.</description>
+    /// </item>
+    /// <item>
+    /// <term>Educational content</term>
+    /// <description>Teach programming concepts with highlighted syntax.</description>
+    /// </item>
     /// </list>
     /// <para>Default sizing provides full width with content-based height, capped at 800px for readability.</para>
     /// </remarks>
