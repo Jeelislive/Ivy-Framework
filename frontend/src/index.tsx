@@ -2,6 +2,13 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { App } from './components/App';
+import { logger } from '@/lib/logger';
+import {
+  getIvyVersion,
+  getIvyCommit,
+  getIvyBuild,
+  getIvyHost,
+} from '@/lib/utils';
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Failed to find root element');
@@ -14,6 +21,20 @@ let root = (window as WindowWithReactRoot).__reactRoot;
 if (!root) {
   root = createRoot(container);
   (window as WindowWithReactRoot).__reactRoot = root;
+}
+
+try {
+  const info = {
+    framework: 'Ivy',
+    version: getIvyVersion() ?? 'unknown',
+    commit: getIvyCommit() ?? undefined,
+    build: getIvyBuild() ?? undefined,
+    host: getIvyHost(),
+    mode: import.meta.env.MODE,
+  } as const;
+  logger.info('Using framework:', info);
+} catch (e) {
+  console.info('Ivy: failed to log version info', e);
 }
 
 root.render(

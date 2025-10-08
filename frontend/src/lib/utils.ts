@@ -55,6 +55,29 @@ export function getIvyHost(): string {
   return window.location.origin;
 }
 
+/**
+ * Returns the content of a meta tag named with the given key.
+ * Example: getIvyMeta('ivy-version') -> "1.0.118"
+ */
+export function getIvyMeta(name: string): string | null {
+  return (
+    document.querySelector(`meta[name="${name}"]`)?.getAttribute('content') ??
+    null
+  );
+}
+
+export function getIvyVersion(): string | null {
+  return getIvyMeta('ivy-version');
+}
+
+export function getIvyCommit(): string | null {
+  return getIvyMeta('ivy-commit');
+}
+
+export function getIvyBuild(): string | null {
+  return getIvyMeta('ivy-build');
+}
+
 export function camelCase(titleCase: unknown): unknown {
   if (typeof titleCase !== 'string') {
     return titleCase;
