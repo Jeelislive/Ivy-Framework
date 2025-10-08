@@ -897,6 +897,12 @@ export const TabsLayoutWidget = ({
             </SortableContext>
           </DndContext>
 
+          {/* Header actions slot (right side of tab bar) */}
+          <div
+            data-ivy-tab-header-actions
+            className="absolute right-10 top-1/2 -translate-y-1/2 z-10"
+          />
+
           {/* Always render dropdown button but only show when needed */}
           <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenuTrigger asChild>

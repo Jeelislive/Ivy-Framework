@@ -41,7 +41,7 @@ public class TabsApp : ViewBase
         });
 
         return new Fragment()
-               | new FloatingPanel(addBtn, Align.BottomLeft)
+               | new FloatingPanel(addBtn, Align.TopLeft).Offset(new Thickness(220, 56, 0, 0))
                | tabsLayout
             ;
 

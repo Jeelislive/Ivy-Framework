@@ -1,5 +1,6 @@
 import { Align, getMargin } from '@/lib/styles';
 import React from 'react';
+import { createPortal } from 'react-dom';
 
 interface FloatingPanelWidgetProps {
   id: string;
@@ -30,6 +31,24 @@ export const FloatingPanelWidget = ({
     Center: 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2',
     Stretch: '',
   };
+
+  // If a tab header actions slot exists, prefer rendering into it for left-aligned FABs.
+  if (
+    (align === 'TopLeft' || align === 'BottomLeft') &&
+    typeof document !== 'undefined'
+  ) {
+    const headerSlot = document.querySelector(
+      '[data-ivy-tab-header-actions]'
+    ) as HTMLElement | null;
+    if (headerSlot) {
+      return createPortal(
+        <div key={id} className="inline-flex">
+          {children}
+        </div>,
+        headerSlot
+      );
+    }
+  }
   return (
     <div
       className={`fixed ${positionClasses[align]} z-50`}
