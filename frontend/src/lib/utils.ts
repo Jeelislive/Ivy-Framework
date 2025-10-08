@@ -66,8 +66,18 @@ export function getIvyMeta(name: string): string | null {
   );
 }
 
+function getVersionFromTitle(): string | null {
+  try {
+    const title = document.title ?? '';
+    const m = title.match(/\b(\d+\.\d+\.\d+(?:[.-]\w+)?)/);
+    return m?.[1] ?? null;
+  } catch {
+    return null;
+  }
+}
+
 export function getIvyVersion(): string | null {
-  return getIvyMeta('ivy-version');
+  return getIvyMeta('ivy-version') ?? getVersionFromTitle();
 }
 
 export function getIvyCommit(): string | null {
