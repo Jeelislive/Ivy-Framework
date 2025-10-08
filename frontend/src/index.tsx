@@ -4,9 +4,9 @@ import './index.css';
 import { App } from './components/App';
 import { logger } from '@/lib/logger';
 import {
-  getIvyVersion,
-  getIvyCommit,
-  getIvyBuild,
+  getIvyVersionOrEnv,
+  getIvyCommitOrEnv,
+  getIvyBuildOrEnv,
   getIvyHost,
 } from '@/lib/utils';
 
@@ -26,9 +26,9 @@ if (!root) {
 try {
   const info = {
     framework: 'Ivy',
-    version: getIvyVersion() ?? 'unknown',
-    commit: getIvyCommit() ?? undefined,
-    build: getIvyBuild() ?? undefined,
+    version: getIvyVersionOrEnv(),
+    commit: getIvyCommitOrEnv(),
+    build: getIvyBuildOrEnv(),
     host: getIvyHost(),
     mode: import.meta.env.MODE,
   } as const;

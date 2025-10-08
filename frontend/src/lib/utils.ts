@@ -69,7 +69,8 @@ export function getIvyMeta(name: string): string | null {
 function getVersionFromTitle(): string | null {
   try {
     const title = document.title ?? '';
-    const m = title.match(/\b(\d+\.\d+\.\d+(?:[.-]\w+)?)/);
+    // Match '0', '1.0', '1.0.118', '1.0.118-beta', etc.
+    const m = title.match(/\b(\d+(?:\.\d+){0,3}(?:[.-][A-Za-z0-9]+)?)/);
     return m?.[1] ?? null;
   } catch {
     return null;
@@ -86,6 +87,40 @@ export function getIvyCommit(): string | null {
 
 export function getIvyBuild(): string | null {
   return getIvyMeta('ivy-build');
+}
+
+// Global access for optional fallbacks
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const __g: any = typeof window !== 'undefined' ? window : {};
+
+// Returns a non-empty version string by checking meta, title, env, and globals
+export function getIvyVersionOrEnv(): string {
+  return (
+    getIvyVersion() ||
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_IVY_VERSION) ||
+    __g.__IVY_VERSION ||
+    '0'
+  );
+}
+
+// Returns commit from meta or env/globals; defaults to '-'
+export function getIvyCommitOrEnv(): string {
+  return (
+    getIvyCommit() ||
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_IVY_COMMIT) ||
+    __g.__IVY_COMMIT ||
+    '-'
+  );
+}
+
+// Returns build from meta or env/globals; defaults to '-'
+export function getIvyBuildOrEnv(): string {
+  return (
+    getIvyBuild() ||
+    (typeof import.meta !== 'undefined' && import.meta.env?.VITE_IVY_BUILD) ||
+    __g.__IVY_BUILD ||
+    '-'
+  );
 }
 
 export function camelCase(titleCase: unknown): unknown {
