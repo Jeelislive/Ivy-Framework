@@ -34,7 +34,7 @@ try {
   } as const;
   logger.info('Using framework:', info);
 } catch (e) {
-  console.info('Ivy: failed to log version info', e);
+  logger.warn('Ivy: failed to log version info', e);
 }
 
 root.render(
