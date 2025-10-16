@@ -529,6 +529,47 @@ public static class WebApplicationExtensions
                     html = Regex.Replace(html, "<title>.*?</title>", metaTitleTag, RegexOptions.Singleline);
                 }
 
+                // Inject Ivy framework metadata for the frontend to consume
+                // Prefer configuration/env values, otherwise use assembly-derived defaults
+                string? ivyVersionCfg = configuration["Ivy:Version"];
+                string? ivyCommitCfg = configuration["Ivy:Commit"];
+                string? ivyBuildCfg = configuration["Ivy:Build"];
+
+                static string TrimTrailingZeroSegments(string version)
+                {
+                    // Remove trailing .0 segments (e.g., 1.2.0.0 -> 1.2)
+                    var parts = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                    int end = parts.Length;
+                    while (end > 1 && parts[end - 1] == "0") end--;
+                    return string.Join('.', parts.AsSpan(0, end).ToArray());
+                }
+
+                var serverAsm = typeof(Server).Assembly;
+                var asmVersionRaw = serverAsm.GetName().Version?.ToString() ?? "0";
+                var asmVersion = TrimTrailingZeroSegments(asmVersionRaw);
+
+                var ivyVersionVal = string.IsNullOrWhiteSpace(ivyVersionCfg) ? asmVersion : ivyVersionCfg!;
+                var ivyCommitVal = string.IsNullOrWhiteSpace(ivyCommitCfg) ? "-" : ivyCommitCfg!;
+
+                string ivyBuildVal;
+                if (!string.IsNullOrWhiteSpace(ivyBuildCfg))
+                {
+                    ivyBuildVal = ivyBuildCfg!;
+                }
+                else
+                {
+                    // Fallback to assembly last write time as a pseudo build identifier
+                    var stamp = (!string.IsNullOrEmpty(serverAsm.Location) && File.Exists(serverAsm.Location))
+                        ? File.GetLastWriteTimeUtc(serverAsm.Location).ToString("yyyy-MM-ddTHH:mm:ssZ")
+                        : DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
+                    ivyBuildVal = stamp;
+                }
+
+                var ivyVersionTag = $"<meta name=\"ivy-version\" content=\"{ivyVersionVal}\" />";
+                var ivyCommitTag = $"<meta name=\"ivy-commit\" content=\"{ivyCommitVal}\" />";
+                var ivyBuildTag = $"<meta name=\"ivy-build\" content=\"{ivyBuildVal}\" />";
+                html = html.Replace("</head>", $"  {ivyVersionTag}\n  {ivyCommitTag}\n  {ivyBuildTag}\n</head>");
+
                 // Inject theme configuration
                 var themeService = app.Services.GetService<IThemeService>();
                 if (themeService != null)
