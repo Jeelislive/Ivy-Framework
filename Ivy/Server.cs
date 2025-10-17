@@ -541,7 +541,7 @@ public static class WebApplicationExtensions
                     var parts = version.Split('.', StringSplitOptions.RemoveEmptyEntries);
                     int end = parts.Length;
                     while (end > 1 && parts[end - 1] == "0") end--;
-                    return string.Join('.', parts.AsSpan(0, end).ToArray());
+                    return string.Join('.', parts, 0, end);
                 }
 
                 var serverAsm = typeof(Server).Assembly;
