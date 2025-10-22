@@ -30,40 +30,17 @@ The navigation system is built on top of Ivy's signal system and integrates seam
 ## How UseNavigation Works
 
 ```mermaid
-sequenceDiagram
-    participant V as View Component
-    participant N as UseNavigation Hook
-    participant S as NavigateSignal
-    participant R as AppRepository
-    participant C as Chrome System
-    participant A as Target App
-    
-    Note over V,A: Navigation Flow
-    V->>N: UseNavigation()
-    N->>S: CreateSignal<NavigateSignal>()
-    N->>R: UseService<IAppRepository>()
-    N-->>V: Return INavigator
-    
-    Note over V,A: Navigate by Type
-    V->>N: navigator.Navigate(typeof(MyApp), args)
-    N->>R: GetApp(typeof(MyApp))
-    R-->>N: Return AppDescriptor with Id
-    N->>S: Send NavigateArgs(appId, args)
-    S->>C: Broadcast NavigateSignal
-    C->>A: Initialize and render MyApp
-    
-    Note over V,A: Navigate by URI
-    V->>N: navigator.Navigate("app://myapp", args)
-    N->>N: Parse URI (app://myapp)
-    N->>S: Send NavigateArgs("myapp", args)
-    S->>C: Broadcast NavigateSignal
-    C->>A: Initialize and render target app
-    
-    Note over V,A: External URL
-    V->>N: navigator.Navigate("https://example.com")
-    N->>N: Detect external URL
-    N->>C: client.OpenUrl("https://example.com")
-    C->>C: Open in browser/external handler
+flowchart TD
+    A[View Component] --> B[UseNavigation Hook]
+    B --> C[INavigator Interface]
+    C --> D{Navigation Type?}
+    D -->|Type-Safe| E[Navigate by Type]
+    D -->|URI-Based| F[Navigate by URI]
+    D -->|External| G[Open External URL]
+    E --> H[Chrome System]
+    F --> H
+    G --> I[Browser/External Handler]
+    H --> J[Target App]
 ```
 
 ## Basic Usage
@@ -102,7 +79,7 @@ public interface INavigator
 
 ## Navigation Patterns
 
-### 1. Type-Safe Navigation
+### Type-Safe Navigation
 
 Navigate to apps using their class types for compile-time safety:
 
@@ -127,264 +104,57 @@ public class DashboardApp : ViewBase
 }
 ```
 
-### 2. Navigation with Arguments
+### Navigation with Arguments
 
 Pass data to target apps using strongly-typed arguments:
 
 ```csharp
 public record UserProfileArgs(int UserId, string Tab = "overview");
 
-public class UserListApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var users = UseState(GetUsers());
-        
-        return new Table<User>(users.Value)
-            .Column("Name", u => u.Name)
-            .Column("Email", u => u.Email)
-            .Column("Actions", u => 
-                new Button("View Profile")
-                    .HandleClick(() => navigator.Navigate(
-                        typeof(UserProfileApp), 
-                        new UserProfileArgs(u.Id, "details")
-                    ))
-            );
-    }
-}
+// Navigate with arguments
+navigator.Navigate(typeof(UserProfileApp), new UserProfileArgs(123, "details"));
 
-[App(icon: Icons.User)]
+// Receive arguments in target app
 public class UserProfileApp : ViewBase
 {
     public override object? Build()
     {
         var args = UseArgs<UserProfileArgs>();
-        var navigator = this.UseNavigation();
-        
-        if (args == null)
-        {
-            return Text.Block("No user specified");
-        }
-        
-        return Layout.Vertical(
-            new Button("← Back to Users")
-                .HandleClick(() => navigator.Navigate(typeof(UserListApp))),
-                
-            Text.Heading($"User Profile: {args.UserId}"),
-            Text.Block($"Active Tab: {args.Tab}")
-        );
+        return Text.Heading($"User Profile: {args?.UserId}");
     }
 }
 ```
 
-### 3. URI-Based Navigation
+### URI-Based Navigation
 
 Use URI strings for dynamic navigation scenarios:
 
 ```csharp
-public class AppLauncherView : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var selectedApp = UseState("");
-        
-        var availableApps = new[]
-        {
-            ("Dashboard", "app://dashboard"),
-            ("Users", "app://users"),
-            ("Settings", "app://settings"),
-            ("Reports", "app://reports")
-        };
-        
-        return Layout.Vertical(
-            new Select("Choose App", selectedApp.Value, 
-                availableApps.Select(a => a.Item1).ToArray(),
-                value => selectedApp.Set(availableApps.First(a => a.Item1 == value).Item2)
-            ),
-            
-            new Button("Launch App")
-                .Disabled(string.IsNullOrEmpty(selectedApp.Value))
-                .HandleClick(() => navigator.Navigate(selectedApp.Value))
-        );
-    }
-}
+// Navigate using URI strings
+navigator.Navigate("app://dashboard");
+navigator.Navigate("app://users");
+navigator.Navigate("app://settings");
+
+// Dynamic navigation
+var appUri = $"app://{selectedAppName}";
+navigator.Navigate(appUri);
 ```
 
-### 4. External URL Navigation
+### External URL Navigation
 
 Open external websites and resources:
 
 ```csharp
-public class ResourcesApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        
-        return Layout.Vertical(
-            Text.Heading("External Resources"),
-            
-            new Button("Open Documentation")
-                .HandleClick(() => navigator.Navigate("https://docs.ivy-framework.com")),
-                
-            new Button("View GitHub Repository")
-                .HandleClick(() => navigator.Navigate("https://github.com/ivy-framework/ivy")),
-                
-            new Button("Community Forum")
-                .HandleClick(() => navigator.Navigate("https://community.ivy-framework.com"))
-        );
-    }
-}
+// Open external URLs
+navigator.Navigate("https://docs.ivy-framework.com");
+navigator.Navigate("https://github.com/ivy-framework/ivy");
+navigator.Navigate("mailto:support@example.com");
 ```
 
-## Advanced Navigation Patterns
-
-### 1. Conditional Navigation
-
-Navigate based on user permissions or application state:
-
-```csharp
-public class SecureNavigationApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var user = UseService<IUserService>().GetCurrentUser();
-        
-        var handleAdminNavigation = UseCallback(() =>
-        {
-            if (user.HasRole("Admin"))
-            {
-                navigator.Navigate(typeof(AdminPanelApp));
-            }
-            else
-            {
-                navigator.Navigate(typeof(UnauthorizedApp));
-            }
-        }, user);
-        
-        return Layout.Vertical(
-            new Button("Dashboard")
-                .HandleClick(() => navigator.Navigate(typeof(DashboardApp))),
-                
-            new Button("Admin Panel")
-                .Disabled(!user.HasRole("Admin"))
-                .HandleClick(handleAdminNavigation),
-                
-            new Button("Profile")
-                .HandleClick(() => navigator.Navigate(
-                    typeof(UserProfileApp), 
-                    new UserProfileArgs(user.Id)
-                ))
-        );
-    }
-}
-```
-
-### 2. Navigation with State Preservation
-
-Preserve navigation state for back/forward functionality:
-
-```csharp
-public class NavigationHistoryApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var navigationHistory = UseState(new Stack<string>());
-        
-        var navigateWithHistory = UseCallback((string appUri) =>
-        {
-            navigationHistory.Set(stack =>
-            {
-                var newStack = new Stack<string>(stack);
-                newStack.Push(appUri);
-                return newStack;
-            });
-            navigator.Navigate(appUri);
-        }, navigationHistory);
-        
-        var goBack = UseCallback(() =>
-        {
-            if (navigationHistory.Value.Count > 0)
-            {
-                navigationHistory.Set(stack =>
-                {
-                    var newStack = new Stack<string>(stack);
-                    if (newStack.Count > 0)
-                    {
-                        var previousApp = newStack.Pop();
-                        navigator.Navigate(previousApp);
-                    }
-                    return newStack;
-                });
-            }
-        }, navigationHistory);
-        
-        return Layout.Vertical(
-            new Button("← Back")
-                .Disabled(navigationHistory.Value.Count == 0)
-                .HandleClick(goBack),
-                
-            Layout.Horizontal(
-                new Button("Go to Users")
-                    .HandleClick(() => navigateWithHistory("app://users")),
-                    
-                new Button("Go to Settings")
-                    .HandleClick(() => navigateWithHistory("app://settings"))
-            )
-        );
-    }
-}
-```
-
-### 3. Dynamic App Loading
-
-Navigate to apps based on runtime configuration:
-
-```csharp
-public class DynamicNavigationApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var appRepository = UseService<IAppRepository>();
-        var availableApps = UseState<List<AppDescriptor>>(new());
-        
-        UseEffect(async () =>
-        {
-            var apps = await appRepository.GetAvailableAppsAsync();
-            availableApps.Set(apps.Where(a => a.IsVisible).ToList());
-        });
-        
-        return Layout.Vertical(
-            Text.Heading("Available Applications"),
-            
-            Layout.Vertical(
-                availableApps.Value.Select(app =>
-                    new Card(
-                        Layout.Horizontal(
-                            new Icon(app.Icon),
-                            Layout.Vertical(
-                                Text.Heading(app.DisplayName),
-                                Text.Block(app.Description)
-                            ),
-                            new Button("Open")
-                                .HandleClick(() => navigator.Navigate($"app://{app.Id}"))
-                        )
-                    ).Key(app.Id)
-                )
-            )
-        );
-    }
-}
-```
 
 ## Navigation Helpers
 
-### Creating Reusable Navigation Helpers
+Create reusable navigation patterns:
 
 ```csharp
 public static class NavigationHelpers
@@ -395,12 +165,6 @@ public static class NavigationHelpers
         return uri => navigator.Navigate(uri);
     }
     
-    public static Action<Type, object?> UseAppNavigation(this IView view)
-    {
-        var navigator = view.UseNavigation();
-        return (type, args) => navigator.Navigate(type, args);
-    }
-    
     public static Action UseBackNavigation(this IView view, string defaultApp = "app://dashboard")
     {
         var navigator = view.UseNavigation();
@@ -408,30 +172,12 @@ public static class NavigationHelpers
     }
 }
 
-// Usage in components
-public class MyComponentWithHelpers : ViewBase
-{
-    public override object? Build()
-    {
-        var navigateToLink = this.UseLinks();
-        var navigateToApp = this.UseAppNavigation();
-        var goBack = this.UseBackNavigation();
-        
-        return Layout.Vertical(
-            new Button("External Link")
-                .HandleClick(() => navigateToLink("https://example.com")),
-                
-            new Button("Internal App")
-                .HandleClick(() => navigateToApp(typeof(SettingsApp), null)),
-                
-            new Button("Go Back")
-                .HandleClick(goBack)
-        );
-    }
-}
+// Usage
+var navigateToLink = this.UseLinks();
+var goBack = this.UseBackNavigation();
 ```
 
-## Integration with Chrome Settings
+### Integration with Chrome Settings
 
 Navigation behavior can be configured through Chrome settings:
 
@@ -457,9 +203,11 @@ public class Program
 - **Pages Mode**: Navigation replaces the current view
 - **Prevent Duplicates**: Avoid opening multiple tabs for the same app
 
-## Best Practices
+## Best Practices and Common Patterns
 
-### 1. Use Type-Safe Navigation When Possible
+### Type-Safe Navigation
+
+Prefer type-safe navigation over URI strings when possible:
 
 ```csharp
 // Preferred: Type-safe navigation
@@ -469,233 +217,70 @@ navigator.Navigate(typeof(UserProfileApp), new UserProfileArgs(userId));
 navigator.Navigate($"app://user-profile?userId={userId}");
 ```
 
-### 2. Handle Navigation Errors Gracefully
+### Master-Detail Navigation
+
+Navigate from list views to detail views:
 
 ```csharp
-public class SafeNavigationApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var error = UseState<string?>(null);
-        
-        var safeNavigate = UseCallback((Type appType) =>
-        {
-            try
-            {
-                navigator.Navigate(appType);
-                error.Set(null);
-            }
-            catch (InvalidOperationException ex)
-            {
-                error.Set($"Navigation failed: {ex.Message}");
-            }
-        }, error);
-        
-        return Layout.Vertical(
-            error.Value != null ? new Alert(error.Value, AlertType.Error) : null,
-            
-            new Button("Navigate Safely")
-                .HandleClick(() => safeNavigate(typeof(SomeApp)))
-        );
-    }
-}
+return new Table<Item>(items)
+    .Column("Name", i => i.Name)
+    .OnRowClick(item => 
+        navigator.Navigate(typeof(ItemDetailApp), new ItemDetailArgs(item.Id))
+    );
 ```
 
-### 3. Use Memoized Callbacks for Navigation
+### Conditional Navigation
+
+Navigate based on user permissions or state:
 
 ```csharp
-public class OptimizedNavigationApp : ViewBase
+var handleNavigation = UseCallback(() =>
 {
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var selectedUserId = UseState<int?>(null);
-        
-        // Memoize navigation callback to prevent unnecessary re-renders
-        var navigateToUser = UseCallback((int userId) =>
-        {
-            navigator.Navigate(typeof(UserProfileApp), new UserProfileArgs(userId));
-        }, navigator);
-        
-        return new UserList(onUserSelected: navigateToUser);
-    }
-}
+    if (user.HasRole("Admin"))
+        navigator.Navigate(typeof(AdminPanelApp));
+    else
+        navigator.Navigate(typeof(UnauthorizedApp));
+}, user);
 ```
 
-### 4. Provide Clear Navigation Feedback
+### Memoized Navigation Callbacks
+
+Use `UseCallback` to prevent unnecessary re-renders:
 
 ```csharp
-public class NavigationWithFeedbackApp : ViewBase
+var navigateToUser = UseCallback((int userId) =>
 {
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var isNavigating = UseState(false);
-        
-        var handleNavigation = UseCallback(async (Type appType) =>
-        {
-            isNavigating.Set(true);
-            try
-            {
-                await Task.Delay(100); // Simulate navigation delay
-                navigator.Navigate(appType);
-            }
-            finally
-            {
-                isNavigating.Set(false);
-            }
-        }, isNavigating);
-        
-        return new Button("Navigate")
-            .Loading(isNavigating.Value)
-            .HandleClick(() => handleNavigation(typeof(TargetApp)));
-    }
-}
-```
-
-## Common Patterns and Use Cases
-
-### 1. Master-Detail Navigation
-
-```csharp
-public class MasterDetailApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var items = UseState(GetItems());
-        
-        return new Table<Item>(items.Value)
-            .Column("Name", i => i.Name)
-            .Column("Description", i => i.Description)
-            .OnRowClick(item => 
-                navigator.Navigate(typeof(ItemDetailApp), new ItemDetailArgs(item.Id))
-            );
-    }
-}
-```
-
-### 2. Wizard Navigation
-
-```csharp
-public class WizardNavigationApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var currentStep = UseArgs<WizardArgs>()?.Step ?? 1;
-        var wizardData = UseState(new WizardData());
-        
-        var nextStep = UseCallback(() =>
-        {
-            navigator.Navigate(typeof(WizardNavigationApp), 
-                new WizardArgs(currentStep + 1, wizardData.Value));
-        }, currentStep, wizardData);
-        
-        var previousStep = UseCallback(() =>
-        {
-            if (currentStep > 1)
-            {
-                navigator.Navigate(typeof(WizardNavigationApp), 
-                    new WizardArgs(currentStep - 1, wizardData.Value));
-            }
-        }, currentStep, wizardData);
-        
-        return Layout.Vertical(
-            Text.Heading($"Step {currentStep} of 3"),
-            RenderCurrentStep(currentStep, wizardData),
-            
-            Layout.Horizontal(
-                new Button("Previous")
-                    .Disabled(currentStep <= 1)
-                    .HandleClick(previousStep),
-                    
-                new Button(currentStep < 3 ? "Next" : "Finish")
-                    .HandleClick(nextStep)
-            )
-        );
-    }
-}
-```
-
-### 3. Context-Aware Navigation
-
-```csharp
-public class ContextAwareNavigationApp : ViewBase
-{
-    public override object? Build()
-    {
-        var navigator = this.UseNavigation();
-        var context = UseService<IApplicationContext>();
-        
-        var navigateBasedOnContext = UseCallback(() =>
-        {
-            switch (context.UserRole)
-            {
-                case "Admin":
-                    navigator.Navigate(typeof(AdminDashboardApp));
-                    break;
-                case "Manager":
-                    navigator.Navigate(typeof(ManagerDashboardApp));
-                    break;
-                default:
-                    navigator.Navigate(typeof(UserDashboardApp));
-                    break;
-            }
-        }, context);
-        
-        return new Button("Go to My Dashboard")
-            .HandleClick(navigateBasedOnContext);
-    }
-}
+    navigator.Navigate(typeof(UserProfileApp), new UserProfileArgs(userId));
+}, navigator);
 ```
 
 ## Troubleshooting
 
-### Common Issues and Solutions
+### App Not Found Error
 
-#### 1. App Not Found Error
-
-**Problem**: `InvalidOperationException: App 'MyApp' not found`
-
-**Solution**: Ensure the target app is registered in the app repository
+Ensure your app has the `[App]` attribute:
 
 ```csharp
-// Make sure your app is decorated with [App] attribute
 [App(icon: Icons.Dashboard)]
-public class MyApp : ViewBase
-{
-    // App implementation
-}
+public class MyApp : ViewBase { }
 ```
 
-#### 2. Navigation Arguments Not Received
+### Navigation Arguments Not Received
 
-**Problem**: `UseArgs<T>()` returns null in target app
-
-**Solution**: Ensure argument types match exactly
+Ensure argument types match exactly between source and target apps:
 
 ```csharp
-// Source app
-navigator.Navigate(typeof(TargetApp), new MyArgs("value"));
-
-// Target app - ensure exact type match
-var args = UseArgs<MyArgs>(); // Must be same type as passed
+// Source: navigator.Navigate(typeof(TargetApp), new MyArgs("value"));
+// Target: var args = UseArgs<MyArgs>(); // Same type
 ```
 
-#### 3. External URLs Not Opening
+### External URLs Not Opening
 
-**Problem**: External URLs don't open in browser
-
-**Solution**: Ensure proper URL format with protocol
+Include the protocol in external URLs:
 
 ```csharp
-// Correct: Include protocol
-navigator.Navigate("https://example.com");
-
-// Incorrect: Missing protocol
-navigator.Navigate("example.com"); // Will be treated as app URI
+navigator.Navigate("https://example.com"); // Correct
+navigator.Navigate("example.com"); // Incorrect - treated as app URI
 ```
 
 ## Performance Considerations
