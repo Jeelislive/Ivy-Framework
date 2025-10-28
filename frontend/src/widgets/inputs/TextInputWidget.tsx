@@ -529,6 +529,9 @@ export const TextInputWidget: React.FC<TextInputWidgetProps> = ({
   const eventHandler = useEventHandler();
   const [localValue, setLocalValue] = useState(value);
   const [isFocused, setIsFocused] = useState(false);
+  const [localInvalid, setLocalInvalid] = useState<string | undefined>(
+    undefined
+  );
   const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement | null>(null);
 
   // Update local value when server value changes and control is not focused
@@ -579,21 +582,41 @@ export const TextInputWidget: React.FC<TextInputWidgetProps> = ({
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       setLocalValue(e.target.value);
+      // Clear client-side email error while editing
+      if (variant === 'Email') {
+        setLocalInvalid(undefined);
+      }
       if (events.includes('OnChange'))
         eventHandler('OnChange', id, [e.target.value]);
     },
-    [eventHandler, id, events]
+    [eventHandler, id, events, variant]
   );
 
   const handleBlur = useCallback(() => {
     setIsFocused(false);
+    // Basic client-side validation for email inputs (docs demo expectation)
+    if (variant === 'Email') {
+      const v = (localValue ?? '').trim();
+      if (v.length > 0) {
+        const emailBasicRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        setLocalInvalid(
+          emailBasicRegex.test(v)
+            ? undefined
+            : 'Please enter a valid email address'
+        );
+      } else {
+        setLocalInvalid(undefined);
+      }
+    }
     if (events.includes('OnBlur')) eventHandler('OnBlur', id, []);
-  }, [eventHandler, id, events]);
+  }, [eventHandler, id, events, variant, localValue]);
 
   const handleFocus = useCallback(() => {
     setIsFocused(true);
     if (events.includes('OnFocus')) eventHandler('OnFocus', id, []);
   }, [eventHandler, id, events]);
+
+  const computedInvalid = invalid ?? localInvalid;
 
   const commonProps = useMemo(
     () => ({
@@ -601,7 +624,7 @@ export const TextInputWidget: React.FC<TextInputWidgetProps> = ({
       placeholder,
       value: localValue,
       disabled,
-      invalid,
+      invalid: computedInvalid,
       width,
       height,
       events,
@@ -614,7 +637,7 @@ export const TextInputWidget: React.FC<TextInputWidgetProps> = ({
       placeholder,
       localValue,
       disabled,
-      invalid,
+      computedInvalid,
       events,
       width,
       height,
