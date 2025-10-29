@@ -5,6 +5,7 @@ using Ivy.Core.Helpers;
 using Ivy.Core.Hooks;
 using Ivy.Widgets.Inputs;
 using Ivy.Shared;
+using Ivy.Views.Forms;
 
 // ReSharper disable once CheckNamespace
 namespace Ivy;
@@ -209,7 +210,34 @@ public static class TextInputExtensions
     /// <param name="state">The state object to bind to.</param>
     /// <param name="placeholder">Optional placeholder text displayed when the input is empty.</param>
     /// <param name="disabled">Whether the input should be disabled initially.</param>
-    public static TextInputBase ToEmailInput(this IAnyState state, string? placeholder = null, bool disabled = false) => state.ToTextInput(placeholder, disabled, TextInputs.Email);
+    public static TextInputBase ToEmailInput(this IAnyState state, string? placeholder = null, bool disabled = false)
+    {
+        var input = state.ToTextInput(placeholder, disabled, TextInputs.Email);
+
+        var validate = Validators.CreateEmailValidator("Email");
+        var existingOnBlur = input.OnBlur;
+        input = input.HandleBlur(async e =>
+        {
+            if (existingOnBlur != null)
+            {
+                await existingOnBlur(e);
+            }
+
+            var current = state.As<string?>().Value;
+            if (e.Sender is not TextInputBase widget) return;
+
+            if (string.IsNullOrWhiteSpace(current))
+            {
+                widget.Invalid = null;
+                return;
+            }
+
+            var (ok, message) = validate(current);
+            widget.Invalid = ok ? null : message;
+        });
+
+        return input;
+    }
 
     /// <summary> Creates a URL input from a state object.</summary>
     /// <param name="state">The state object to bind to.</param>
