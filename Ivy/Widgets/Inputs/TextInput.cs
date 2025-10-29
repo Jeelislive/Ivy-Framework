@@ -214,7 +214,8 @@ public static class TextInputExtensions
     {
         var input = state.ToTextInput(placeholder, disabled, TextInputs.Email);
 
-        var validate = Validators.CreateEmailValidator("Email");
+        const string fieldName = "Email";
+        var validate = Validators.CreateEmailValidator(fieldName);
         var existingOnBlur = input.OnBlur;
         input = input.HandleBlur(async e =>
         {
