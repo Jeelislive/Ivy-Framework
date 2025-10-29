@@ -224,8 +224,8 @@ public static class TextInputExtensions
                 await existingOnBlur(e);
             }
 
-            var current = state.As<string?>().Value;
             if (e.Sender is not TextInputBase widget) return;
+            var current = state.As<string?>().Value;
 
             if (string.IsNullOrWhiteSpace(current))
             {
