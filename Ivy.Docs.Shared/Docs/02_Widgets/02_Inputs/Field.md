@@ -80,11 +80,10 @@ public class WithDescriptionDemo : ViewBase
     public override object? Build()
     {
         var password = UseState("");
-        return new Field(
-            password.ToPasswordInput()
-        )
-        .Label("Password")
-        .Description("Must be at least 8 characters long and include a number");
+        return password.ToPasswordInput()
+            .WithField()
+            .Label("Password")
+            .Description("Must be at least 8 characters long and include a number");
     }
 }
 ```
@@ -104,25 +103,23 @@ public class MixedInputsDemo : ViewBase
         var options = new List<string>() { "I read the terms and conditions and I agree"};
         var selectedNotice = UseState(new string[]{});
         return Layout.Vertical()
-            | new Field(
-                dateState.ToDateTimeInput()
-                           .Variant(DateTimeInputs.Date)
-            )
-            .Label("Date of birth")
-            | new Field(
-                selectedNotice.ToSelectInput(options.ToOptions())
-                                .Variant(SelectInputs.List)
-            )
-            .Label("Terms & Conditions")
-            .Description("You must agree before continuing")
-            .Required();
+            | dateState.ToDateTimeInput()
+                .Variant(DateTimeInputs.Date)
+                .WithField()
+                .Label("Date of birth")
+            | selectedNotice.ToSelectInput(options.ToOptions())
+                .Variant(SelectInputs.List)
+                .WithField()
+                .Label("Terms & Conditions")
+                .Description("You must agree before continuing")
+                .Required();
     }
 }
 ```
 
-## When to Use
-
-* Use `Field` whenever you want **consistent form layout** across your application with labels, description and required asterisk.
+<Callout Tip="Info">
+Use `Field` whenever you want **consistent form layout** across your application with labels, description and required asterisk.
+</Callout>
 
 <WidgetDocs Type="Ivy.Field" SourceUrl="https://github.com/Ivy-Interactive/Ivy-Framework/blob/main/Ivy/Widgets/Inputs/Field.cs"/>
 
