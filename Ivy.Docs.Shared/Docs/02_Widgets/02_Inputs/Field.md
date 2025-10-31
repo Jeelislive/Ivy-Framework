@@ -62,11 +62,12 @@ public class RequiredDemo : ViewBase
     public override object? Build()
     {
         var email = UseState("");
-        return new Field(
-            email.ToEmailInput().Placeholder("user@domain.com")
-        )
-        .Label("Email")
-        .Required();
+        
+        return email.ToValidatedEmailField(
+            placeholder: "user@domain.com",
+            label: "Email", 
+            required: true
+        );
     }
 }
 ```

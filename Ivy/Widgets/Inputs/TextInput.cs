@@ -210,35 +210,7 @@ public static class TextInputExtensions
     /// <param name="state">The state object to bind to.</param>
     /// <param name="placeholder">Optional placeholder text displayed when the input is empty.</param>
     /// <param name="disabled">Whether the input should be disabled initially.</param>
-    public static TextInputBase ToEmailInput(this IAnyState state, string? placeholder = null, bool disabled = false)
-    {
-        var input = state.ToTextInput(placeholder, disabled, TextInputs.Email);
-
-        const string fieldName = "Email";
-        var validate = Validators.CreateEmailValidator(fieldName);
-        var existingOnBlur = input.OnBlur;
-        input = input.HandleBlur(async e =>
-        {
-            if (existingOnBlur != null)
-            {
-                await existingOnBlur(e);
-            }
-
-            var current = state.As<string?>().Value;
-            if (e.Sender is not TextInputBase widget) return;
-
-            if (string.IsNullOrWhiteSpace(current))
-            {
-                widget.Invalid = null;
-                return;
-            }
-
-            var (ok, message) = validate(current);
-            widget.Invalid = ok ? null : message;
-        });
-
-        return input;
-    }
+    public static TextInputBase ToEmailInput(this IAnyState state, string? placeholder = null, bool disabled = false) => state.ToTextInput(placeholder, disabled, TextInputs.Email);
 
     /// <summary> Creates a URL input from a state object.</summary>
     /// <param name="state">The state object to bind to.</param>
@@ -292,7 +264,21 @@ public static class TextInputExtensions
     [OverloadResolutionPriority(1)]
     public static TextInputBase HandleBlur(this TextInputBase widget, Func<Event<IAnyInput>, ValueTask> onBlur)
     {
-        return widget with { OnBlur = onBlur };
+        var existingOnBlur = widget.OnBlur;
+        if (existingOnBlur == null)
+        {
+            return widget with { OnBlur = onBlur };
+        }
+
+        // Chain the handlers
+        return widget with
+        {
+            OnBlur = async e =>
+        {
+            await existingOnBlur(e);
+            await onBlur(e);
+        }
+        };
     }
 
     /// <summary> Sets the blur event handler for the text input. </summary>

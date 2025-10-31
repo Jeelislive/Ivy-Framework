@@ -126,6 +126,9 @@ public class FormFieldView(
         void OnBlur(Event<IAnyInput> _)
         {
             blurOnceState.Set(true);
+            // Validate immediately on blur
+            var value = inputState.As<object>().Value;
+            Validate(value, invalidState);
         }
 
         var input = inputFactory(inputState).Invalid(invalidState.Value);
