@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import ReactECharts from 'echarts-for-react';
 import { getHeight, getWidth } from '@/lib/styles';
 import { useThemeWithMonitoring } from '@/components/theme-provider';
@@ -140,12 +140,27 @@ const LineChartWidget: React.FC<LineChartWidgetProps> = ({
     ]
   );
 
+  const chartRef = useRef<ReactECharts>(null);
+
+  // Handle chart resize when container becomes visible (e.g., tab switch)
+  useEffect(() => {
+    const chartInstance = chartRef.current?.getEchartsInstance();
+    if (chartInstance) {
+      // Small delay to ensure DOM has updated
+      const timer = setTimeout(() => {
+        chartInstance.resize();
+      }, 0);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <div style={styles}>
       <ReactECharts
+        ref={chartRef}
         option={option}
         style={chartStyles}
-        notMerge={true} // Merge changes instead of full rebuild for better performance
+        notMerge={false} // Merge changes instead of full rebuild for better performance
         lazyUpdate={true}
       />
     </div>
