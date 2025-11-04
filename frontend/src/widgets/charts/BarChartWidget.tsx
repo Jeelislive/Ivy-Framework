@@ -10,6 +10,7 @@ import {
   generateDataProps,
   generateEChartGrid,
   generateEChartLegend,
+  generateEChartToolbox,
   getColors,
 } from './sharedUtils';
 import { useThemeWithMonitoring } from '@/components/theme-provider';
@@ -25,6 +26,7 @@ import {
   MarkLine,
   ReferenceDot,
   ToolTipProps,
+  ToolboxProps,
   XAxisProps,
   YAxisProps,
 } from './chartTypes';
@@ -41,6 +43,7 @@ interface BarChartWidgetProps {
   yAxis?: YAxisProps[];
   tooltip?: ToolTipProps;
   legend?: LegendProps;
+  toolbox?: ToolboxProps;
   referenceLines?: MarkLine;
   referenceAreas?: MarkArea;
   referenceDots?: ReferenceDot;
@@ -62,6 +65,7 @@ const BarChartWidget: React.FC<BarChartWidgetProps> = ({
   yAxis,
   tooltip,
   legend,
+  toolbox,
   referenceLines,
   referenceAreas,
   referenceDots,
@@ -162,7 +166,7 @@ const BarChartWidget: React.FC<BarChartWidgetProps> = ({
         themeColors.foreground,
         themeColors.fontSans
       ),
-      xAxis: generateXAxis(categories, xAxis, isVertical, {
+      xAxis: generateXAxis(ChartType.Bar, categories, xAxis, isVertical, {
         mutedForeground: themeColors.mutedForeground,
         fontSans: themeColors.fontSans,
       }),
@@ -189,6 +193,7 @@ const BarChartWidget: React.FC<BarChartWidgetProps> = ({
         fontSans: themeColors.fontSans,
         background: themeColors.background,
       }),
+      toolbox: generateEChartToolbox(toolbox),
     }),
     [
       cartesianGrid,
@@ -205,6 +210,7 @@ const BarChartWidget: React.FC<BarChartWidgetProps> = ({
       series,
       legend,
       tooltip,
+      toolbox,
     ]
   );
 

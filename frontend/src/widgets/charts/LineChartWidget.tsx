@@ -13,9 +13,10 @@ import {
   generateYAxis,
   getColors,
   getTransformValueFn,
+  generateEChartToolbox,
 } from './sharedUtils';
 import { getChartThemeColors } from './styles';
-import { LineChartWidgetProps } from './chartTypes';
+import { LineChartWidgetProps, ChartType } from './chartTypes';
 
 const LineChartWidget: React.FC<LineChartWidgetProps> = ({
   data,
@@ -27,6 +28,7 @@ const LineChartWidget: React.FC<LineChartWidgetProps> = ({
   yAxis,
   tooltip,
   legend,
+  toolbox,
   referenceLines,
   referenceAreas,
   referenceDots,
@@ -77,10 +79,16 @@ const LineChartWidget: React.FC<LineChartWidgetProps> = ({
   const option = useMemo(
     () => ({
       grid: generateEChartGrid(cartesianGrid),
-      xAxis: generateXAxis(categories as string[], xAxis, false, {
-        mutedForeground: themeColors.mutedForeground,
-        fontSans: themeColors.fontSans,
-      }),
+      xAxis: generateXAxis(
+        ChartType.Line,
+        categories as string[],
+        xAxis,
+        false,
+        {
+          mutedForeground: themeColors.mutedForeground,
+          fontSans: themeColors.fontSans,
+        }
+      ),
       yAxis: generateYAxis(
         largeSpread,
         transform,
@@ -99,6 +107,7 @@ const LineChartWidget: React.FC<LineChartWidgetProps> = ({
         fontSans: themeColors.fontSans,
         background: themeColors.background,
       }),
+      toolbox: generateEChartToolbox(toolbox),
       legend: generateEChartLegend(legend, {
         foreground: themeColors.foreground,
         fontSans: themeColors.fontSans,
@@ -137,6 +146,7 @@ const LineChartWidget: React.FC<LineChartWidgetProps> = ({
       referenceDots,
       referenceLines,
       referenceAreas,
+      toolbox,
     ]
   );
 

@@ -7,6 +7,8 @@ import {
   MarkLine,
   ReferenceDot,
   ToolTipProps,
+  ToolboxFeatures,
+  ToolboxProps,
   XAxisProps,
   YAxisProps,
 } from './chartTypes';
@@ -66,8 +68,8 @@ export function generateEChartGrid(
 ) {
   const defaultGrid = {
     show: false, // Hide grid border to remove the square frame
-    left: 2,
-    right: 2,
+    left: '4%',
+    right: '4%',
     top: 30,
     bottom: hasLegend ? 60 : 30, // More space for legend
     containLabel: true,
@@ -97,6 +99,7 @@ export function generateEChartLegend(
       themeColors?.foreground,
       themeColors?.fontSans
     ),
+    top: 'bottom',
   };
   if (!legend) return defaultLegends;
 
@@ -170,6 +173,7 @@ export const generateSeries = (
 };
 
 export const generateXAxis = (
+  chartType: string,
   categories: string[],
   xAxis?: XAxisProps[],
   isVertical?: boolean,
@@ -177,6 +181,7 @@ export const generateXAxis = (
 ) => ({
   position: xAxis?.[0]?.orientation?.toLowerCase() === 'top' ? 'top' : 'bottom',
   type: isVertical ? 'value' : 'category',
+  boundaryGap: chartType === 'bar' ? true : false,
   data: isVertical ? undefined : categories,
   axisLabel: {
     show: true,
@@ -297,3 +302,61 @@ export const generateTooltip = (
   borderColor: themeColors?.foreground || '#000',
   borderWidth: 1,
 });
+
+export const generateEChartToolbox = (toolbox?: ToolboxProps) => {
+  if (!toolbox || toolbox.enabled === false) {
+    return { show: false };
+  }
+
+  const features: ToolboxFeatures = {};
+
+  if (toolbox.dataView !== false) {
+    features.dataView = {
+      show: true,
+      readOnly: false,
+    };
+  }
+
+  if (toolbox.magicType !== false) {
+    features.magicType = {
+      show: true,
+      type: ['line', 'bar'],
+    };
+  }
+
+  if (toolbox.saveAsImage !== false) {
+    features.saveAsImage = {
+      show: true,
+    };
+  }
+
+  return {
+    show: true,
+    orient:
+      toolbox.orientation?.toLowerCase() === 'vertical'
+        ? 'vertical'
+        : 'horizontal',
+    left:
+      toolbox.align?.toLowerCase() === 'left'
+        ? 'left'
+        : toolbox.align?.toLowerCase() === 'center'
+          ? 'center'
+          : 'right',
+    top:
+      toolbox.verticalAlign?.toLowerCase() === 'top'
+        ? 'top'
+        : toolbox.verticalAlign?.toLowerCase() === 'middle'
+          ? 'middle'
+          : 'bottom',
+    feature: features,
+    emphasis: {
+      iconStyle: {
+        color: null,
+        borderColor: null,
+        textFill: getComputedStyle(document.documentElement)
+          .getPropertyValue('--toolbox')
+          .trim(),
+      },
+    },
+  };
+};
