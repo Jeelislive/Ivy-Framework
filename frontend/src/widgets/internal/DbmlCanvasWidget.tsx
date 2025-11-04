@@ -208,23 +208,32 @@ const DbmlTableNode: React.FC<DbmlTableNodeProps> = ({ data, selected }) => {
                 }}
               />
             )}
-            <DatabaseSchemaTableCell>
-              <div className="flex items-center">
+            <DatabaseSchemaTableCell className="min-w-0 flex-1">
+              <div className="flex items-center min-w-0">
                 {field.pk && (
-                  <span className="mr-1.5 text-amber-500" title="Primary Key">
+                  <span
+                    className="mr-1.5 text-amber-500 shrink-0"
+                    title="Primary Key"
+                  >
                     🔑
                   </span>
                 )}
                 <span
-                  className={`font-medium ${field.pk ? 'text-primary' : ''}`}
+                  className={`font-medium truncate ${field.pk ? 'text-primary' : ''}`}
+                  title={field.name}
                 >
                   {field.name}
                 </span>
               </div>
             </DatabaseSchemaTableCell>
-            <DatabaseSchemaTableCell className="text-muted-foreground ml-auto text-right">
-              {field.type}
-              {field.nullable ? '?' : ''}
+            <DatabaseSchemaTableCell className="text-muted-foreground ml-auto text-right shrink-0">
+              <span
+                className="truncate max-w-[120px] inline-block"
+                title={`${field.type}${field.nullable ? '?' : ''}`}
+              >
+                {field.type}
+                {field.nullable ? '?' : ''}
+              </span>
             </DatabaseSchemaTableCell>
             {field.isSource && (
               <Handle
