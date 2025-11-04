@@ -149,7 +149,9 @@ export const DatabaseSchemaTableRow = ({
   children,
 }: DatabaseSchemaTableRowProps) => {
   return (
-    <div className="flex items-center justify-between py-1">{children}</div>
+    <div className="flex items-center justify-between gap-4 py-1">
+      {children}
+    </div>
   );
 };
 
@@ -220,11 +222,11 @@ const DbmlTableNode: React.FC<DbmlTableNodeProps> = ({ data, selected }) => {
                 </span>
               </div>
             </DatabaseSchemaTableCell>
-            <DatabaseSchemaTableCell className="text-muted-foreground ml-2">
+            <DatabaseSchemaTableCell className="text-muted-foreground ml-auto text-right">
               {field.type}
               {field.nullable ? '?' : ''}
             </DatabaseSchemaTableCell>
-            {(field.isSource || field.pk) && (
+            {field.isSource && (
               <Handle
                 type="source"
                 position={Position.Right}
@@ -249,7 +251,7 @@ const nodeTypes: NodeTypes = {
 
 const calculateNodeDimensions = (tableData: DbmlTableData) => {
   // Base dimensions
-  const minWidth = 200;
+  const minWidth = 250;
   const minHeight = 120;
   const fieldHeight = 28; // Height per field row
   const headerHeight = 40; // Height for table header
@@ -264,8 +266,8 @@ const calculateNodeDimensions = (tableData: DbmlTableData) => {
 
   // Estimate width based on character count (rough approximation)
   const estimatedWidth = Math.max(
-    tableName.length * 8 + 60, // Table name width + padding for PK icon
-    longestField.length * 7 + 60, // Longest field width + padding
+    tableName.length * 8 + 100, // Table name width + padding for PK icon
+    longestField.length * 9 + 100, // Longest field width + padding
     minWidth
   );
 
@@ -276,7 +278,7 @@ const calculateNodeDimensions = (tableData: DbmlTableData) => {
   );
 
   return {
-    width: Math.min(estimatedWidth, 350), // Cap max width at 350px
+    width: Math.min(estimatedWidth, 400), // Cap max width at 400px
     height: calculatedHeight,
   };
 };
@@ -469,7 +471,7 @@ export const DbmlCanvasWidget: React.FC<DbmlCanvasWidgetProps> = ({
                 name: field.name,
                 type: field.type.type_name,
                 pk: field.pk || false,
-                isSource: tableRelations.sources.has(field.name) || field.pk,
+                isSource: tableRelations.sources.has(field.name),
                 isTarget: tableRelations.targets.has(field.name),
                 nullable: field.not_null === false,
               })),
@@ -487,7 +489,7 @@ export const DbmlCanvasWidget: React.FC<DbmlCanvasWidgetProps> = ({
           sourceHandle: `${ref.endpoints[0].fieldNames[0]}-right`,
           targetHandle: `${ref.endpoints[1].fieldNames[0]}-left`,
           type: 'smoothstep',
-          style: { stroke: getConnectionLineColor() },
+          style: { stroke: getConnectionLineColor(), strokeWidth: 2 },
           markerEnd: {
             type: MarkerType.ArrowClosed,
             color: getConnectionLineColor(),
@@ -597,7 +599,7 @@ export const DbmlCanvasWidget: React.FC<DbmlCanvasWidgetProps> = ({
         maxZoom={1.5}
         defaultEdgeOptions={{
           type: 'smoothstep',
-          style: { stroke: getConnectionLineColor() },
+          style: { stroke: getConnectionLineColor(), strokeWidth: 2 },
           markerEnd: {
             type: MarkerType.ArrowClosed,
             color: getConnectionLineColor(),
