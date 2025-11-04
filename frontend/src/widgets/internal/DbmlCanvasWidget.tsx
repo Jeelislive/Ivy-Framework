@@ -498,7 +498,7 @@ export const DbmlCanvasWidget: React.FC<DbmlCanvasWidgetProps> = ({
           sourceHandle: `${ref.endpoints[0].fieldNames[0]}-right`,
           targetHandle: `${ref.endpoints[1].fieldNames[0]}-left`,
           type: 'smoothstep',
-          style: { stroke: getConnectionLineColor(), strokeWidth: 2 },
+          style: { stroke: getConnectionLineColor() },
           markerEnd: {
             type: MarkerType.ArrowClosed,
             color: getConnectionLineColor(),
@@ -608,7 +608,7 @@ export const DbmlCanvasWidget: React.FC<DbmlCanvasWidgetProps> = ({
         maxZoom={1.5}
         defaultEdgeOptions={{
           type: 'smoothstep',
-          style: { stroke: getConnectionLineColor(), strokeWidth: 2 },
+          style: { stroke: getConnectionLineColor() },
           markerEnd: {
             type: MarkerType.ArrowClosed,
             color: getConnectionLineColor(),
