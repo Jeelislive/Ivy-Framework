@@ -280,7 +280,7 @@ const nodeTypes: NodeTypes = {
 
 const calculateNodeDimensions = (tableData: DbmlTableData) => {
   // Fixed dimensions for all tables
-  const fixedWidth = 280;
+  const fixedWidth = 240;
   const minHeight = 120;
   const fieldHeight = 28; // Height per field row
   const headerHeight = 40; // Height for table header
